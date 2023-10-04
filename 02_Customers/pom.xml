@@ -69,6 +69,19 @@
             <version>1.18.28</version>
             <scope>compile</scope>
         </dependency>
+
+        <!-- Dependencia para manejo de flujos reactivos en Quarkus -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-vertx</artifactId>
+        </dependency>
+        <!-- Cliente web para hacer llamadas a otros microservicios usando protocolo http reactivo -->
+        <dependency>
+            <groupId>io.smallrye.reactive</groupId>
+            <artifactId>smallrye-mutiny-vertx-web-client</artifactId>
+        </dependency>
+
+
     </dependencies>
     <build>
         <plugins>
