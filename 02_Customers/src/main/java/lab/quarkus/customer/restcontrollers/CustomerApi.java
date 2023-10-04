@@ -50,14 +50,17 @@ public class CustomerApi {
 
   @POST
   public Response addCustomer(Customer customer) {
+    customer.getProducts().forEach(product -> product.setCustomer(customer));
     customerRepository.save(customer);
     return Response.ok().build();
   }
 
 
   @DELETE
-  public Response deleteProduct(Customer customer) {
-    customerRepository.delete(customer);
+  @Path("/{id}")
+  public Response deleteProduct(@PathParam("id") Long id) {
+    Optional<Customer> optionalCustomer = customerRepository.findById(id);
+    optionalCustomer.ifPresent(customer -> customerRepository.delete(customer));
     return Response.ok().build();
   }
 }
