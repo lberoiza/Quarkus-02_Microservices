@@ -23,7 +23,5 @@ public class Product {
   @Transient
   private String name;
   @Transient
-  private String code;
-  @Transient
   private String description;
 }
