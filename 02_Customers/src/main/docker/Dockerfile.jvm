@@ -7,7 +7,7 @@
 #
 # Then, build the image with:
 #
-# docker build -f src/main/docker/Dockerfile.jvm -t quarkus/quarkus-products-jvm .
+# docker build -f src/main/docker/Dockerfile.jvm -t quarkus/quarkus-microservices-customers-jvm .
 #
 # Then run the container using:
 #
@@ -20,7 +20,7 @@
 #
 # Then run the container using :
 #
-# docker run -i -d --rm -p 8080:8080 quarkus/quarkus-products-jvm  --name microservice_customers
+# docker run -i -d --name microservice_customers --rm -p 8082:8082 quarkus/quarkus-microservices-customers-jvm
 #
 # This image uses the `run-java.sh` script to run the application.
 # This scripts computes the command line to execute your Java application, and
