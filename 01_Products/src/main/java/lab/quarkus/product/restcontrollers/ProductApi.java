@@ -55,8 +55,10 @@ public class ProductApi {
 
 
   @DELETE
-  public Response deleteProduct(Product product) {
-    productRepository.delete(product);
+  @Path("/{id}")
+  public Response deleteProduct(@PathParam("id") Long id) {
+    Optional<Product> optionalProduct = productRepository.findById(id);
+    optionalProduct.ifPresent(product -> productRepository.delete(product));
     return Response.ok().build();
   }
 }
