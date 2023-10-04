@@ -20,7 +20,7 @@
 #
 # Then run the container using :
 #
-# docker run -i -d --name microservice_product --rm -p 8081:8081 quarkus/microservices-products-jvm
+# docker run -i -d --name microservice_products --rm -p 8081:8081 quarkus/microservices-products-jvm
 #
 # This image uses the `run-java.sh` script to run the application.
 # This scripts computes the command line to execute your Java application, and
