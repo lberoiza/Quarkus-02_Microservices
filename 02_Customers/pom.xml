@@ -154,5 +154,21 @@
                 <quarkus.package.type>native</quarkus.package.type>
             </properties>
         </profile>
+        <profile>
+            <id>production</id>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>src/main/resources</directory>
+                        <includes>
+                            <include>application.properties</include>
+                            <include>application-prod.properties</include> <!-- Incluye el archivo de producción -->
+                        </includes>
+                        <filtering>true</filtering> <!-- Habilita la filtración de propiedades -->
+                    </resource>
+                </resources>
+            </build>
+        </profile>
+
     </profiles>
 </project>
