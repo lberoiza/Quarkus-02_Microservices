@@ -5,7 +5,7 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import lab.quarkus.product.entities.Product;
-import lab.quarkus.product.repositories.ProductRepository;
+import lab.quarkus.product.repositories.ProductRepositoryQuarkus;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,12 +16,12 @@ import java.util.Optional;
 public class ProductApi {
 
   @Inject
-  ProductRepository productRepository;
+  ProductRepositoryQuarkus productRepository;
 
 
   @GET
   public List<Product> getProductList() {
-    return productRepository.getAll();
+    return productRepository.findAll();
   }
 
   @GET()

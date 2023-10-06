@@ -16,6 +16,9 @@ public abstract class BaseCrud<E, K> {
 
   protected abstract TypedQuery<E> getQueryFindById();
 
+  @Transactional
+  public abstract List<E> findAll();
+
 
   @Transactional
   public void save(E entity) {
@@ -31,9 +34,6 @@ public abstract class BaseCrud<E, K> {
   public void delete(E entity) {
     em.remove(entity);
   }
-
-  @Transactional
-  public abstract List<E> getAll();
 
   @Transactional
   public Optional<E> findById(K id) {
