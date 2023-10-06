@@ -15,7 +15,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import lab.quarkus.customer.entities.Customer;
 import lab.quarkus.customer.entities.Product;
-import lab.quarkus.customer.repositories.CustomerRepositoryQuarkus;
+import lab.quarkus.customer.repositories.CustomerRepositoryBlaze;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
@@ -38,7 +38,7 @@ public class CustomerService {
   Boolean microserviceProductTrustAll;
 
   @Inject
-  CustomerRepositoryQuarkus customerRepository;
+  CustomerRepositoryBlaze customerRepository;
 
   @Inject
   Vertx vertx;

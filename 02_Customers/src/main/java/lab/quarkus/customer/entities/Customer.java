@@ -2,6 +2,7 @@ package lab.quarkus.customer.entities;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import lab.quarkus.customer.blazepersistence.entityviews.CustomerEntityView;
 import lombok.Data;
 
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.List;
 @Entity
 @Data
 @Table(name = "customers")
-public class Customer {
+public class Customer implements CustomerEntityView {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,13 +27,13 @@ public class Customer {
   private List<Product> products;
 
 
-  public void updateWith(Customer customer) {
-    this.setName(customer.getName());
-    this.setSurname(customer.getSurname());
-    this.setCode(customer.getCode());
-    this.setAccountNumber(customer.getAccountNumber());
-    this.setPhone(customer.getPhone());
-    this.setAddress(customer.getAddress());
+  public void updateWith(CustomerEntityView customerEntityView) {
+    this.setName(customerEntityView.getName());
+    this.setSurname(customerEntityView.getSurname());
+    this.setCode(customerEntityView.getCode());
+    this.setAccountNumber(customerEntityView.getAccountNumber());
+    this.setPhone(customerEntityView.getPhone());
+    this.setAddress(customerEntityView.getAddress());
   }
 
 }
