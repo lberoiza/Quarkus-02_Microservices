@@ -15,7 +15,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import lab.quarkus.customer.entities.Customer;
 import lab.quarkus.customer.entities.Product;
-import lab.quarkus.customer.repositories.CustomerRepository;
+import lab.quarkus.customer.repositories.CustomerRepositoryQuarkus;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
@@ -40,7 +40,7 @@ public class CustomerService {
 
 
   @Inject
-  CustomerRepository customerRepository;
+  CustomerRepositoryQuarkus customerRepository;
 
   @Inject
   Vertx vertx;

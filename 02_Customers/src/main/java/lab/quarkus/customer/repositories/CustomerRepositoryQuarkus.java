@@ -7,7 +7,7 @@ import lab.quarkus.customer.entities.Customer;
 import java.util.List;
 
 @ApplicationScoped
-public class CustomerRepository extends BaseCrud<Customer, Long>{
+public class CustomerRepositoryQuarkus extends BaseCrud<Customer, Long>{
 
   @Override
   protected TypedQuery<Customer> getQueryFindById() {
