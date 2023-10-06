@@ -57,7 +57,7 @@ public class CustomerService {
 
 
   public List<Customer> getCustomerList() {
-    return customerRepository.getAll();
+    return customerRepository.findAll();
   }
 
 

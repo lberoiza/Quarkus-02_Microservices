@@ -15,7 +15,7 @@ public class CustomerRepositoryQuarkus extends BaseCrud<Customer, Long>{
   }
 
   @Override
-  public List<Customer> getAll() {
+  public List<Customer> findAll() {
     return em.createQuery("select c from Customer c", Customer.class).getResultList();
   }
 

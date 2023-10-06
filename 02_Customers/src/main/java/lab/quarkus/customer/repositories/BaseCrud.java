@@ -33,7 +33,7 @@ public abstract class BaseCrud<E, K> {
   }
 
   @Transactional
-  public abstract List<E> getAll();
+  public abstract List<E> findAll();
 
   @Transactional
   public Optional<E> findById(K id) {
