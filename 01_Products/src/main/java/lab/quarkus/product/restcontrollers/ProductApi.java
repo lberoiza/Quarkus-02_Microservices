@@ -5,7 +5,7 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import lab.quarkus.product.entities.Product;
-import lab.quarkus.product.repositories.ProductRepositoryQuarkus;
+import lab.quarkus.product.repositories.ProductRepositorySpringDataJpa;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,7 +16,7 @@ import java.util.Optional;
 public class ProductApi {
 
   @Inject
-  ProductRepositoryQuarkus productRepository;
+  ProductRepositorySpringDataJpa productRepository;
 
 
   @GET
@@ -42,7 +42,7 @@ public class ProductApi {
     if(optionalProduct.isPresent()) {
       Product productToUpdate = optionalProduct.get();
       productToUpdate.updateWith(product);
-      productRepository.update(productToUpdate);
+      productRepository.save(productToUpdate);
     }
     return Response.ok().build();
   }

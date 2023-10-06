@@ -72,6 +72,12 @@
       <version>1.18.28</version>
       <scope>compile</scope>
     </dependency>
+    <!-- Spring Data para Quarkus    -->
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-spring-data-jpa</artifactId>
+    </dependency>
+
   </dependencies>
   <build>
     <plugins>
