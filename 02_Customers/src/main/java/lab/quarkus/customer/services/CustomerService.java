@@ -34,10 +34,8 @@ public class CustomerService {
   @ConfigProperty(name = "microservice.products.ssl")
   Boolean microserviceProductSsl;
 
-
   @ConfigProperty(name = "microservice.products.trustAll")
   Boolean microserviceProductTrustAll;
-
 
   @Inject
   CustomerRepositoryQuarkus customerRepository;
@@ -46,7 +44,6 @@ public class CustomerService {
   Vertx vertx;
 
   private WebClient microserviceProductWebClient;
-
 
   @PostConstruct
   private void initialize() {
@@ -82,12 +79,10 @@ public class CustomerService {
     }
   }
 
-
   public void addCustomer(Customer customer) {
     customer.getProducts().forEach(product -> product.setCustomer(customer));
     customerRepository.save(customer);
   }
-
 
   public void deleteCustomer(Long id) {
     Optional<Customer> optionalCustomer = customerRepository.findById(id);
@@ -98,7 +93,6 @@ public class CustomerService {
     customerRepository.delete(customer);
   }
 
-
   public Uni<Customer> getCustomerProductsById(Long id) {
     return Uni.combine().all().unis(getReactiveCustomerById(id), getFromMicroserviceProductsAllProducts())
         .combinedWith((reactiveCustomer, allProductsAsMap) -> {
@@ -108,7 +102,7 @@ public class CustomerService {
   }
 
   private void updateCustomerProduct(Product customerProduct, Map<Long, Product> allProductsAsMap) {
-    if(allProductsAsMap.containsKey(customerProduct.getId())) {
+    if (allProductsAsMap.containsKey(customerProduct.getId())) {
       Product productFromMap = allProductsAsMap.get(customerProduct.getId());
       customerProduct.setDescription(productFromMap.getDescription());
       customerProduct.setName(productFromMap.getName());
@@ -156,6 +150,5 @@ public class CustomerService {
   private void failureOnMicroservice(Throwable error) {
     log.error("Error by getting Products from Microservices: '{}'", error.getMessage());
   }
-
 
 }
