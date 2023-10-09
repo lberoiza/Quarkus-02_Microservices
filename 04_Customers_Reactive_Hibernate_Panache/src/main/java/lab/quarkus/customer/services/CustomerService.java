@@ -5,7 +5,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.netty.handler.codec.http.HttpResponseStatus;
 import io.quarkus.hibernate.reactive.panache.Panache;
-import io.quarkus.hibernate.reactive.panache.PanacheEntityBase;
 import io.quarkus.hibernate.reactive.panache.common.WithSession;
 import io.quarkus.panache.common.Sort;
 import io.smallrye.mutiny.Uni;
@@ -22,6 +21,7 @@ import jakarta.ws.rs.WebApplicationException;
 import jakarta.ws.rs.core.Response;
 import lab.quarkus.customer.entities.Customer;
 import lab.quarkus.customer.entities.Product;
+import lab.quarkus.customer.repositories.CustomerRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
@@ -52,6 +52,9 @@ public class CustomerService {
   @Inject
   Vertx vertx;
 
+  @Inject
+  CustomerRepository customerRepository;
+
   private WebClient microserviceProductWebClient;
 
   @PostConstruct
@@ -65,13 +68,13 @@ public class CustomerService {
   }
 
 
-  public Uni<List<PanacheEntityBase>> getCustomerList() {
-    return Customer.listAll(Sort.by("name"));
+  public Uni<List<Customer>> getCustomerList() {
+    return customerRepository.findAll(Sort.by("name")).list();
   }
 
 
-  public Uni<PanacheEntityBase> getCustomerById(Long id) {
-    return Customer.findById(id);
+  public Uni<Customer> getCustomerById(Long id) {
+    return customerRepository.findById(id);
   }
 
   public Uni<Response> updateCustomer(Long id, Customer customerUpdateData) {
@@ -81,27 +84,26 @@ public class CustomerService {
     }
 
     return Panache.withTransaction(() ->
-            Customer
-                .<Customer>findById(id)
+            customerRepository.findById(id)
                 .onItem().ifNotNull()
-                .invoke(entity -> entity.updateWith(customerUpdateData))
+                .invoke(foundedCustomer -> foundedCustomer.updateWith(customerUpdateData))
         ).onItem().ifNotNull()
         .transform(entity -> Response.ok(entity).build())
         .onItem().ifNull()
         .continueWith(Response.ok().status(NOT_FOUND).build());
   }
 
+
   public Uni<Response> addCustomer(Customer customer) {
-    customer.getProducts().forEach(product -> product.setCustomer(customer));
     return Panache
-        .withTransaction(customer::persist)
+        .withTransaction(() -> customerRepository.persist(customer))
         .replaceWith(
             Response.ok(customer).status(CREATED)::build
         );
   }
 
   public Uni<Response> deleteCustomer(Long id) {
-    return Panache.withTransaction(() -> Customer.deleteById(id))
+    return Panache.withTransaction(() -> customerRepository.deleteById(id))
         .map(deleted -> {
           Response.Status deleteStatus = deleted ? NO_CONTENT : NOT_FOUND;
           return Response.ok().status(deleteStatus).build();
@@ -125,7 +127,7 @@ public class CustomerService {
   }
 
   private Uni<Customer> getReactiveCustomerById(Long id) {
-    return Customer.findById(id);
+    return customerRepository.findById(id);
   }
 
 

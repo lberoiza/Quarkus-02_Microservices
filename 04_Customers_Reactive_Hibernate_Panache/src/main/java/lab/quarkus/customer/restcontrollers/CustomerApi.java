@@ -1,7 +1,5 @@
 package lab.quarkus.customer.restcontrollers;
 
-import io.quarkus.hibernate.reactive.panache.PanacheEntityBase;
-import io.quarkus.hibernate.reactive.panache.common.WithSession;
 import io.smallrye.mutiny.Uni;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
@@ -22,14 +20,14 @@ public class CustomerApi {
 
 
   @GET
-  public Uni<List<PanacheEntityBase>> getCustomerList() {
+  public Uni<List<Customer>> getCustomerList() {
     return customerService.getCustomerList();
 //    return Customer.findAll().list();
   }
 
   @GET()
   @Path("/{id}")
-  public Uni<PanacheEntityBase> getCustomer(@PathParam("id") Long id) {
+  public Uni<Customer> getCustomer(@PathParam("id") Long id) {
     return customerService.getCustomerById(id);
   }
 
