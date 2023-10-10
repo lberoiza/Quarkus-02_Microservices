@@ -72,11 +72,42 @@
       <version>1.18.28</version>
       <scope>compile</scope>
     </dependency>
-    <!-- Spring Data para Quarkus    -->
+
+    <!-- Librerías para programacion reactiva -->
     <dependency>
       <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-spring-data-jpa</artifactId>
+      <artifactId>quarkus-vertx</artifactId>
     </dependency>
+    <dependency>
+      <groupId>io.smallrye.reactive</groupId>
+      <artifactId>smallrye-mutiny-vertx-web-client</artifactId>
+    </dependency>
+
+
+    <!-- Trabajo con base de datos postgres reactiva -->
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-reactive-pg-client</artifactId>
+    </dependency>
+
+
+    <!-- Trabajo con Hibernate Panache Reactivo -->
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-hibernate-reactive-panache</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-hibernate-validator</artifactId>
+    </dependency>
+
+    <!-- Librería para usar GraphQl -->
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-smallrye-graphql</artifactId>
+    </dependency>
+
 
   </dependencies>
   <build>

@@ -9,3 +9,6 @@ insert into products (id, name, description) values (1, 'Television Sony', 'Tele
 insert into products (id, name, description) values (2, 'Bicycle Cube', 'Electro-Bicycle Cube 26 inch Wheels');
 insert into products (id, name, description) values (3, 'Ferrari Diablo red', 'Auto Ferrari Diablo Red');
 insert into products (id, name, description) values (4, 'Airplane', 'Jet Airplane');
+insert into products (id, name, description) values (5, 'Mansion', 'Big Mansion 2000 mt2');
+insert into products (id, name, description) values (6, 'Hummer Limo', 'Big Luxus Auto ');
+insert into products (id, name, description) values (7, 'Department', 'Department in London');
