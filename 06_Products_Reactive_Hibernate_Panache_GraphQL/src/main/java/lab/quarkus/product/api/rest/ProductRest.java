@@ -9,7 +9,6 @@ import lab.quarkus.product.entities.Product;
 import services.ProductService;
 
 import java.util.List;
-import java.util.Optional;
 
 import static jakarta.ws.rs.core.Response.Status.*;
 
