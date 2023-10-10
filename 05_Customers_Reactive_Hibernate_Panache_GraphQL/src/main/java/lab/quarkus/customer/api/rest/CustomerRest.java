@@ -1,4 +1,4 @@
-package lab.quarkus.customer.restcontrollers;
+package lab.quarkus.customer.api.rest;
 
 import io.smallrye.mutiny.Uni;
 import jakarta.inject.Inject;
@@ -17,7 +17,7 @@ import static jakarta.ws.rs.core.Response.Status.CREATED;
 @Path("/customer")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class CustomerApi {
+public class CustomerRest {
 
   @Inject
   CustomerService customerService;
