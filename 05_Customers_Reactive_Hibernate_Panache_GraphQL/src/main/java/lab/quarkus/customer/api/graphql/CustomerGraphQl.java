@@ -117,8 +117,8 @@ public class CustomerGraphQl implements CustomerApi {
   @Mutation("deleteCustomer")
   @Description("Delete a customer")
   @Override
-  public Uni<Boolean> deleteCustomer(@Name("customerId") Long id) {
-    return customerService.deleteCustomer(id);
+  public Uni<Boolean> deleteCustomerById(@Name("customerId") Long id) {
+    return customerService.deleteCustomerById(id);
   }
 
 

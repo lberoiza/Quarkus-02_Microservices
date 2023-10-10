@@ -18,7 +18,7 @@ public interface CustomerApi {
 
   Uni<?> addCustomer(Customer customer);
 
-  Uni<?> deleteCustomer(Long id);
+  Uni<?> deleteCustomerById(Long id);
 
 
 }

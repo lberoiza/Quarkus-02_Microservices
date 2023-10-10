@@ -62,8 +62,8 @@ public class CustomerRest implements CustomerApi {
 
   @DELETE
   @Path("/{id}")
-  public Uni<Response> deleteCustomer(@PathParam("id") Long id) {
-    return customerService.deleteCustomer(id)
+  public Uni<Response> deleteCustomerById(@PathParam("id") Long id) {
+    return customerService.deleteCustomerById(id)
         .map(deleted -> {
           Response.Status deleteStatus = deleted ? NO_CONTENT : NOT_FOUND;
           return Response.ok().status(deleteStatus).build();

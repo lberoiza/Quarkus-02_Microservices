@@ -85,7 +85,7 @@ public class CustomerService {
     return customerRepository.saveCustomer(customer);
   }
 
-  public Uni<Boolean> deleteCustomer(Long id) {
+  public Uni<Boolean> deleteCustomerById(Long id) {
     return customerRepository.deleteCustomerById(id);
 
   }
