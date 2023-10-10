@@ -12,3 +12,9 @@ insert into products (id, customer, product) values (1, 1, 1);
 insert into products (id, customer, product) values (2, 1, 2);
 insert into products (id, customer, product) values (3, 1, 3);
 insert into products (id, customer, product) values (4, 1, 4);
+
+
+insert into customers (id, code, accountNumber, name, surname, phone, address) values (2, 'SMA', '654741369', 'Silvia', 'Martinez', '987456', 'Test Street 01');
+
+insert into products (id, customer, product) values (5, 2, 2);
+insert into products (id, customer, product) values (6, 2, 3);
