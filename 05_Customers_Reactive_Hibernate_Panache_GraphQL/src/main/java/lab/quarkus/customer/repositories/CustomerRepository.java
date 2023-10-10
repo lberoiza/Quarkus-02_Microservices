@@ -10,6 +10,7 @@ import lab.quarkus.customer.entities.Customer;
 public class CustomerRepository implements PanacheRepositoryBase<Customer, Long> {
 
   public Uni<Customer> saveCustomer(Customer customer) {
+    customer.getProducts().forEach(product -> product.setCustomer(customer));
     return Panache.withTransaction(() -> this.persist(customer));
   }
 
