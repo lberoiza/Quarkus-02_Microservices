@@ -17,7 +17,6 @@ import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.WebApplicationException;
-import jakarta.ws.rs.core.Response;
 import lab.quarkus.customer.entities.Customer;
 import lab.quarkus.customer.entities.Product;
 import lab.quarkus.customer.repositories.CustomerRepository;
@@ -25,10 +24,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import java.util.*;
-
-import static jakarta.ws.rs.core.Response.Status.NOT_FOUND;
-import static jakarta.ws.rs.core.Response.Status.NO_CONTENT;
-import static jakarta.ws.rs.core.Response.Status.CREATED;
 
 @Slf4j
 @ApplicationScoped
@@ -76,33 +71,23 @@ public class CustomerService {
     return customerRepository.findById(id);
   }
 
-  public Uni<Response> updateCustomer(Long id, Customer customerUpdateData) {
+  public Uni<Customer> updateCustomer(Long id, Customer customerUpdateData) {
     if (customerUpdateData == null) {
       log.error("Customer data was not include in the request");
       throw new WebApplicationException("Customer was not in the request", HttpResponseStatus.UNPROCESSABLE_ENTITY.code());
     }
 
-    return customerRepository.updateCustomer(id, customerUpdateData)
-        .onItem().ifNotNull()
-        .transform(entity -> Response.ok(entity).build())
-        .onItem().ifNull()
-        .continueWith(Response.ok().status(NOT_FOUND).build());
+    return customerRepository.updateCustomer(id, customerUpdateData);
   }
 
 
-  public Uni<Response> addCustomer(Customer customer) {
-    return customerRepository.saveCustomer(customer)
-        .replaceWith(
-            Response.ok(customer).status(CREATED)::build
-        );
+  public Uni<Customer> addCustomer(Customer customer) {
+    return customerRepository.saveCustomer(customer);
   }
 
-  public Uni<Response> deleteCustomer(Long id) {
-    return customerRepository.deleteCustomerById(id)
-        .map(deleted -> {
-          Response.Status deleteStatus = deleted ? NO_CONTENT : NOT_FOUND;
-          return Response.ok().status(deleteStatus).build();
-        });
+  public Uni<Boolean> deleteCustomer(Long id) {
+    return customerRepository.deleteCustomerById(id);
+
   }
 
   public Uni<Customer> getCustomerProductsById(Long id) {
