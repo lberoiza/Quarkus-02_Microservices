@@ -5,6 +5,7 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import lab.quarkus.customer.api.interfaces.CustomerApi;
 import lab.quarkus.customer.entities.Customer;
 import lab.quarkus.customer.services.CustomerService;
 
@@ -17,7 +18,7 @@ import static jakarta.ws.rs.core.Response.Status.CREATED;
 @Path("/customer")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class CustomerRest {
+public class CustomerRest implements CustomerApi {
 
   @Inject
   CustomerService customerService;
@@ -26,7 +27,6 @@ public class CustomerRest {
   @GET
   public Uni<List<Customer>> getCustomerList() {
     return customerService.getCustomerList();
-//    return Customer.findAll().list();
   }
 
   @GET()
@@ -62,7 +62,7 @@ public class CustomerRest {
 
   @DELETE
   @Path("/{id}")
-  public Uni<Response> deleteProduct(@PathParam("id") Long id) {
+  public Uni<Response> deleteCustomer(@PathParam("id") Long id) {
     return customerService.deleteCustomer(id)
         .map(deleted -> {
           Response.Status deleteStatus = deleted ? NO_CONTENT : NOT_FOUND;
