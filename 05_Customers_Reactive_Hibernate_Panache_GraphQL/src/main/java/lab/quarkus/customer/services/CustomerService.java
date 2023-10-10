@@ -4,7 +4,6 @@ package lab.quarkus.customer.services;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.netty.handler.codec.http.HttpResponseStatus;
-import io.quarkus.hibernate.reactive.panache.Panache;
 import io.quarkus.hibernate.reactive.panache.common.WithSession;
 import io.quarkus.panache.common.Sort;
 import io.smallrye.mutiny.Uni;
@@ -83,11 +82,8 @@ public class CustomerService {
       throw new WebApplicationException("Customer was not in the request", HttpResponseStatus.UNPROCESSABLE_ENTITY.code());
     }
 
-    return Panache.withTransaction(() ->
-            customerRepository.findById(id)
-                .onItem().ifNotNull()
-                .invoke(foundedCustomer -> foundedCustomer.updateWith(customerUpdateData))
-        ).onItem().ifNotNull()
+    return customerRepository.updateCustomer(id, customerUpdateData)
+        .onItem().ifNotNull()
         .transform(entity -> Response.ok(entity).build())
         .onItem().ifNull()
         .continueWith(Response.ok().status(NOT_FOUND).build());
@@ -95,15 +91,14 @@ public class CustomerService {
 
 
   public Uni<Response> addCustomer(Customer customer) {
-    return Panache
-        .withTransaction(() -> customerRepository.persist(customer))
+    return customerRepository.saveCustomer(customer)
         .replaceWith(
             Response.ok(customer).status(CREATED)::build
         );
   }
 
   public Uni<Response> deleteCustomer(Long id) {
-    return Panache.withTransaction(() -> customerRepository.deleteById(id))
+    return customerRepository.deleteCustomerById(id)
         .map(deleted -> {
           Response.Status deleteStatus = deleted ? NO_CONTENT : NOT_FOUND;
           return Response.ok().status(deleteStatus).build();
