@@ -5,17 +5,20 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import lab.quarkus.product.api.interfaces.ProductApi;
 import lab.quarkus.product.entities.Product;
-import services.ProductService;
+import lab.quarkus.product.services.ProductService;
 
 import java.util.List;
 
-import static jakarta.ws.rs.core.Response.Status.*;
+import static jakarta.ws.rs.core.Response.Status.CREATED;
+import static jakarta.ws.rs.core.Response.Status.NOT_FOUND;
+import static jakarta.ws.rs.core.Response.Status.NO_CONTENT;
 
 @Path("/product")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class ProductRest {
+public class ProductRest implements ProductApi {
 
   @Inject
   ProductService productService;

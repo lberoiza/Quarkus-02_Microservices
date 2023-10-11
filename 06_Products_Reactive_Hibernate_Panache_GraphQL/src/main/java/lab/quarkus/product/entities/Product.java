@@ -1,17 +1,14 @@
 package lab.quarkus.product.entities;
 
+import io.quarkus.hibernate.reactive.panache.PanacheEntity;
 import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
 @Data
 @Table(name = "products")
-public class Product {
+public class Product extends PanacheEntity {
 
-
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private Long id;
   private String name;
   private String description;
 

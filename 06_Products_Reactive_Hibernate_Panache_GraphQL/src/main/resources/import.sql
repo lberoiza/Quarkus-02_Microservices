@@ -12,3 +12,5 @@ insert into products (id, name, description) values (4, 'Airplane', 'Jet Airplan
 insert into products (id, name, description) values (5, 'Mansion', 'Big Mansion 2000 mt2');
 insert into products (id, name, description) values (6, 'Hummer Limo', 'Big Luxus Auto ');
 insert into products (id, name, description) values (7, 'Department', 'Department in London');
+
+SELECT setval('products_seq', (SELECT MAX(id) FROM products));

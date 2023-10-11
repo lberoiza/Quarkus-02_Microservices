@@ -5,11 +5,14 @@ import io.quarkus.hibernate.reactive.panache.PanacheRepositoryBase;
 import io.smallrye.mutiny.Uni;
 import jakarta.enterprise.context.ApplicationScoped;
 import lab.quarkus.product.entities.Product;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @ApplicationScoped
 public class ProductRepository implements PanacheRepositoryBase<Product, Long> {
 
   public Uni<Product> addProduct(Product product) {
+    log.info("Adding Product: '{}: {}'",product.getName(), product.getDescription());
     return Panache.withTransaction(() -> this.persist(product));
   }
 

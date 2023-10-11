@@ -1,5 +1,6 @@
-package services;
+package lab.quarkus.product.services;
 
+import io.quarkus.hibernate.reactive.panache.common.WithSession;
 import io.smallrye.mutiny.Uni;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -9,6 +10,7 @@ import lab.quarkus.product.repositories.ProductRepository;
 import java.util.List;
 
 @ApplicationScoped
+@WithSession
 public class ProductService {
 
   @Inject
