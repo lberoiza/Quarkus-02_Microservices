@@ -18,3 +18,6 @@ insert into customers (id, code, accountNumber, name, surname, phone, address) v
 
 insert into products (id, customer, product) values (5, 2, 2);
 insert into products (id, customer, product) values (6, 2, 3);
+
+SELECT setval('customers_seq', (SELECT MAX(id) FROM customers));
+SELECT setval('products_seq', (SELECT MAX(id) FROM products));
