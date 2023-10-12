@@ -28,7 +28,7 @@ public class CustomerRest implements CustomerApi {
 
   @Inject
   @Named("ProductMicroserviceRest")
-  ProductMicroservice  productMicroservice;
+  ProductMicroservice productMicroservice;
 
 
   @GET

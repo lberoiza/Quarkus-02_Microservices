@@ -23,19 +23,19 @@ import java.util.*;
 @Slf4j
 @ApplicationScoped
 @Named("ProductMicroserviceRest")
-public class ProductMicroserviceRest implements ProductMicroservice{
+public class ProductMicroserviceRest implements ProductMicroservice {
 
 
-  @ConfigProperty(name = "microservice.products.host")
+  @ConfigProperty(name = "microservice.products.rest.host")
   String microserviceProductHost;
 
-  @ConfigProperty(name = "microservice.products.port")
+  @ConfigProperty(name = "microservice.products.rest.port")
   Integer microserviceProductPort;
 
-  @ConfigProperty(name = "microservice.products.ssl")
+  @ConfigProperty(name = "microservice.products.rest.ssl")
   Boolean microserviceProductSsl;
 
-  @ConfigProperty(name = "microservice.products.trustAll")
+  @ConfigProperty(name = "microservice.products.rest.trustAll")
   Boolean microserviceProductTrustAll;
 
   @Inject
@@ -68,13 +68,13 @@ public class ProductMicroserviceRest implements ProductMicroservice{
 
   @Override
   public Uni<Product> getProductById(Long id) {
-    return microserviceProductWebClient.get("/product/"+id)
+    return microserviceProductWebClient.get("/product/" + id)
         .send()
         .onFailure().invoke(this::failureOnMicroservice)
         .onItem().transform(this::httpResponseToProduct);
   }
 
-  private Uni<HttpResponse<Buffer>> getAllProducts(){
+  private Uni<HttpResponse<Buffer>> getAllProducts() {
     return microserviceProductWebClient.get("/product")
         .send()
         .onFailure().invoke(this::failureOnMicroservice);
@@ -86,7 +86,7 @@ public class ProductMicroserviceRest implements ProductMicroservice{
     return optionalProduct.get();
   }
 
-  private List<Product> httpResponseToProductList(HttpResponse<Buffer> response){
+  private List<Product> httpResponseToProductList(HttpResponse<Buffer> response) {
     List<Product> productList = new ArrayList<>();
     JsonArray objects = response.bodyAsJsonArray();
     log.info("Getting from Microservice List Products as json: {}", objects.toString());
