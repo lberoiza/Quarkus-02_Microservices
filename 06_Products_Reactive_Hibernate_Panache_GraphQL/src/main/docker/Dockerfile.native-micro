@@ -10,11 +10,11 @@
 #
 # Then, build the image with:
 #
-# docker build -f src/main/docker/Dockerfile.native-micro -t quarkus/quarkus-products-native .
+# docker build -f src/main/docker/Dockerfile.native-micro -t quarkus/microservices-products-native .
 #
 # Then run the container using:
 #
-# docker run -i --name microservice_products --rm -p 8086:8086 quarkus/quarkus-products-native
+# docker run -i --name microservice_products --rm -p 8086:8086 quarkus/microservices-products-native
 #
 ###
 FROM quay.io/quarkus/quarkus-micro-image:2.0
