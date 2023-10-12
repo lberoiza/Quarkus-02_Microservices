@@ -70,7 +70,8 @@
       <scope>compile</scope>
     </dependency>
 
-    <!-- Librerías para programacion reactiva -->
+    <!-- Extensiones para programacion reactiva -->
+    <!-- Y hacer consular asincronas a otros microservicios rest -->
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-vertx</artifactId>
@@ -80,27 +81,36 @@
       <artifactId>smallrye-mutiny-vertx-web-client</artifactId>
     </dependency>
 
-    <!-- Trabajo con base de datos postgres reactiva -->
+    <!-- Extensión para base de datos postgres reactiva -->
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-reactive-pg-client</artifactId>
     </dependency>
 
-    <!-- Trabajo con Hibernate Panache Reactivo -->
+    <!-- Extensiones Hibernate Panache Reactivo -->
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-hibernate-reactive-panache</artifactId>
     </dependency>
-
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-hibernate-validator</artifactId>
     </dependency>
 
-    <!-- Librería para usar GraphQl -->
+    <!-- Extensión para usar GraphQl -->
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-smallrye-graphql</artifactId>
+    </dependency>
+
+    <!-- Extensiones para poder hacer consultas a un microservicio GraphQl   -->
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-rest-client-reactive</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-smallrye-graphql-client</artifactId>
     </dependency>
 
   </dependencies>
