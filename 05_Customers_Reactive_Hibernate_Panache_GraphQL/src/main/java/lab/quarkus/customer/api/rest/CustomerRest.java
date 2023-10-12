@@ -2,11 +2,14 @@ package lab.quarkus.customer.api.rest;
 
 import io.smallrye.mutiny.Uni;
 import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import lab.quarkus.customer.api.interfaces.CustomerApi;
 import lab.quarkus.customer.entities.Customer;
+import lab.quarkus.customer.entities.Product;
+import lab.quarkus.customer.microservices.products.ProductMicroservice;
 import lab.quarkus.customer.services.CustomerService;
 
 import java.util.List;
@@ -22,6 +25,10 @@ public class CustomerRest implements CustomerApi {
 
   @Inject
   CustomerService customerService;
+
+  @Inject
+  @Named("ProductMicroserviceRest")
+  ProductMicroservice  productMicroservice;
 
 
   @GET
@@ -39,7 +46,7 @@ public class CustomerRest implements CustomerApi {
   @GET()
   @Path("/{id}/products")
   public Uni<Customer> getCustomerProducts(@PathParam("id") Long id) {
-    return customerService.getCustomerProductsById(id);
+    return customerService.getCustomerProductsById(id, productMicroservice);
   }
 
   @PUT()
@@ -68,5 +75,19 @@ public class CustomerRest implements CustomerApi {
           Response.Status deleteStatus = deleted ? NO_CONTENT : NOT_FOUND;
           return Response.ok().status(deleteStatus).build();
         });
+  }
+
+  @Override
+  @GET
+  @Path("/product/{id}")
+  public Uni<Product> getProductById(@PathParam("id") Long id) {
+    return productMicroservice.getProductById(id);
+  }
+
+  @GET
+  @Path("/product")
+  @Override
+  public Uni<List<Product>> getAllProducts() {
+    return productMicroservice.getAllProductsAsList();
   }
 }

@@ -2,18 +2,27 @@ package lab.quarkus.customer.api.graphql;
 
 import io.smallrye.mutiny.Uni;
 import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import lab.quarkus.customer.api.interfaces.CustomerApi;
 import lab.quarkus.customer.entities.Customer;
+import lab.quarkus.customer.entities.Product;
+import lab.quarkus.customer.microservices.products.ProductMicroservice;
 import lab.quarkus.customer.services.CustomerService;
+import lombok.extern.slf4j.Slf4j;
 import org.eclipse.microprofile.graphql.*;
 
 import java.util.List;
 
+@Slf4j
 @GraphQLApi
 public class CustomerGraphQl implements CustomerApi {
 
   @Inject
   CustomerService customerService;
+
+  @Inject
+  @Named("ProductMicroserviceGraphQl")
+  ProductMicroservice productMicroservice;
 
 
   // Si no se pone un nombre, toma el nombre del método
@@ -69,7 +78,7 @@ public class CustomerGraphQl implements CustomerApi {
   @Description("Get the Information of a Customer and his products from Product-Microservice")
   @Override
   public Uni<Customer> getCustomerProducts(@Name("customerId") Long id) {
-    return customerService.getCustomerProductsById(id);
+    return customerService.getCustomerProductsById(id, productMicroservice);
   }
 
   @Mutation("updateCustomer")
@@ -119,6 +128,21 @@ public class CustomerGraphQl implements CustomerApi {
   @Override
   public Uni<Boolean> deleteCustomerById(@Name("customerId") Long id) {
     return customerService.deleteCustomerById(id);
+  }
+
+  @Override
+  @Query("productById")
+  @Description("Get A Product by Id from Product Microservice")
+  public Uni<Product> getProductById(@Name("productId") Long id) {
+    log.info("GraphQl Getting from Product Microservice Information by Id: {}", id);
+    return productMicroservice.getProductById(id);
+  }
+
+  @Override
+  @Query("productList")
+  @Description("Get the Product List from Product Microservice")
+  public Uni<List<Product>> getAllProducts() {
+    return productMicroservice.getAllProductsAsList();
   }
 
 

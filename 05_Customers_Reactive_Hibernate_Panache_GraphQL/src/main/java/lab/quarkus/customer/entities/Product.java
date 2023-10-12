@@ -9,17 +9,15 @@ import lombok.Data;
 @Data
 @Table(
     name = "products",
-    uniqueConstraints = @UniqueConstraint(columnNames = {"customer", "product"})
+    uniqueConstraints = @UniqueConstraint(columnNames = {"customer", "productId"})
 )
 public class Product extends PanacheEntity {
-  @Transient
-  private Long id;
   @ManyToOne
   @JoinColumn(name = "customer", referencedColumnName = "id")
   @JsonBackReference
   private Customer customer;
   @Column
-  private Long product;
+  private Long productId;
   @Transient
   private String name;
   @Transient
