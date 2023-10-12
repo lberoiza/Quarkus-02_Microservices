@@ -8,7 +8,7 @@
 
 insert into customers (id, code, accountNumber, name, surname, phone, address) values (1, 'LAB', '987654321', 'Luis Alberto', 'Beroiza Osses', '123546', 'Spring Even Street');
 
-insert into products (id, customer, producId) values (1, 1, 1);
+insert into products (id, customer, productId) values (1, 1, 1);
 insert into products (id, customer, productId) values (2, 1, 2);
 insert into products (id, customer, productId) values (3, 1, 3);
 insert into products (id, customer, productId) values (4, 1, 4);
