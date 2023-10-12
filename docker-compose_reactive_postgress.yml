@@ -1,0 +1,35 @@
+version: '3'
+services:
+  service-products:
+    image: quarkus/microservices-products-native
+    container_name: microservice-products-native
+    ports:
+      - "8086:8086"
+    networks:
+      - 03-quarkus-microservices
+
+  service-customers:
+    image: quarkus/microservices-customers-native
+    container_name: microservice-customers-native
+    ports:
+      - "8085:8085"
+    networks:
+      - 03-quarkus-microservices
+
+  postgresql:
+    image: postgres:latest
+    container_name: postgresqldb
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+    ports:
+      - "5432:5432"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    networks:
+      - 03-quarkus-microservices
+
+networks:
+  03-quarkus-microservices:
